@@ -26,7 +26,7 @@ async function setupRspackVersion(rspackTag) {
 async function setupModern(rspackTag) {
   await setupRspackVersion(rspackTag);
 
-  await $`pnpm install --ignore-scripts && pnpm prepare`;
+  await $`pnpm install --ignore-scripts --no-frozen-lockfile && pnpm prepare`;
 }
 
 (async function run() {
