@@ -27,6 +27,8 @@ async function setupModern(rspackTag) {
   await setupRspackVersion(rspackTag);
 
   await $`pnpm install --ignore-scripts --no-frozen-lockfile && pnpm prepare`;
+
+  await $`node packages/toolkit/e2e/node_modules/@playwright/test/cli.js install`
 }
 
 (async function run() {

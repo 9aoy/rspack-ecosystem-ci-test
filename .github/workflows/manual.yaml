@@ -43,8 +43,5 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Install playwright
-        run: node packages/toolkit/e2e/node_modules/@playwright/test/cli.js install
-
       - name: 🚀 Run Modern.js Test
         run: pnpm run test:modern --tag ${{ github.event.inputs.tag }}
