@@ -44,13 +44,15 @@ async function setupModern(rspackTag) {
 
   fs.ensureDirSync("packages");
 
-  await spinner("Setup modern.js repo...", () =>
-    setupRepo(repoPath, "https://github.com/web-infra-dev/modern.js.git")
-  );
+  echo `Setup modern.js repo...`
+
+  await setupRepo(repoPath, "https://github.com/web-infra-dev/modern.js.git")
 
   cd(repoPath);
 
-  await spinner("Setup modern.js environment...", () => setupModern(tag));
+  echo `Setup modern.js environment...`
+
+  await setupModern(tag);
 
   await $`cd tests/e2e/builder && pnpm test:rspack`;
 })();

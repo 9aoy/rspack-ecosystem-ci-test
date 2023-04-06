@@ -1,5 +1,9 @@
 name: Manual
 
+concurrency:
+  group: modern-test-${{ github.head_ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
     inputs:
