@@ -16,6 +16,7 @@ on:
         - canary
         - test
         - latest
+        - default
 jobs:
   e2e-test:
     runs-on: ubuntu-latest
@@ -40,4 +41,4 @@ jobs:
         run: pnpm install
 
       - name: 🚀 Run Modern.js Test
-        run: pnpm run test:modern --tag ${{ github.event.inputs.version }}
+        run: pnpm run test:modern --tag ${{ github.event.inputs.tag }}

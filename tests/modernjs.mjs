@@ -1,40 +1,30 @@
 #!/usr/bin/env zx
 
 import "zx/globals";
-import { setupRepo, getPkgTagVersion } from "./util.mjs";
+import { setupRepo, getPkgTagVersion, applyRspackPkgOverrides } from "./util.mjs";
 
 const { tag = "latest" } = argv;
 
-async function setupModern(rspackTag) {
+async function setupRspackVersion(rspackTag) {
+  if (rspackTag === 'default') {
+    echo(`Testing rspack with the modern.js repo default version`);  
+    return;
+  }
+
   // fetch rspack version & overrides
   const rspackVersion = await getPkgTagVersion("@rspack/cli", rspackTag);
 
-  echo(`Testing rspack@${rspackTag} version:`, chalk.blue(rspackVersion));
+  if (rspackVersion) {
+    await applyRspackPkgOverrides(rspackVersion);
 
-  async function applyPackageOverrides(rspackVersion) {
-    const pkgInfo = await fs.readJson("./package.json");
-
-    fs.writeJSONSync(
-      "./package.json",
-      {
-        ...pkgInfo,
-        pnpm: {
-          ...(pkgInfo.pnpm || {}),
-          overrides: {
-            ...(pkgInfo.pnpm?.overrides || {}),
-            "@rspack/core": rspackVersion,
-            "@rspack/dev-client": rspackVersion,
-            "@rspack/dev-middleware": rspackVersion,
-            "@rspack/plugin-html": rspackVersion,
-            "@rspack/postcss-loader": rspackVersion,
-          },
-        },
-      },
-      { spaces: 2 }
-    );
+    echo(`Testing rspack@${rspackTag} version:`, chalk.blue(rspackVersion));  
+  } else {
+    echo(`Testing rspack@${rspackTag} version is undefined, using default`);  
   }
+}
 
-  await applyPackageOverrides(rspackVersion);
+async function setupModern(rspackTag) {
+  await setupRspackVersion(rspackTag);
 
   await $`pnpm install --ignore-scripts && pnpm prepare`;
 }
