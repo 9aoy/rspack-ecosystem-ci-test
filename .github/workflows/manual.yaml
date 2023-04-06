@@ -5,6 +5,9 @@ concurrency:
   cancel-in-progress: true
 
 on:
+  push:
+    branches: [main]
+
   workflow_dispatch:
     inputs:
       tag:
@@ -39,6 +42,9 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm install
+
+      - name: Install playwright
+        run: node packages/toolkit/e2e/node_modules/@playwright/test/cli.js install
 
       - name: 🚀 Run Modern.js Test
         run: pnpm run test:modern --tag ${{ github.event.inputs.tag }}
