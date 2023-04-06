@@ -13,7 +13,7 @@ on:
         - test
         - latest
 jobs:
-  benchmark:
+  e2e-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
           cache: 'pnpm'
-          cache-dependency-path: scripts/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install Dependencies
         run: pnpm install
