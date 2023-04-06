@@ -44,4 +44,4 @@ jobs:
         run: pnpm install
 
       - name: 🚀 Run Modern.js Test
-        run: pnpm run test:modern --tag ${{ github.event.inputs.tag }}
+        run: pnpm run test:modern --tag ${{ github.event.inputs.tag || 'canary' }}
