@@ -1,0 +1,16 @@
+{
+  "name": "rspack-ecosystem-ci",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:modern": "node tests/modernjs.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "zx": "^7.2.1"
+  }
+}
